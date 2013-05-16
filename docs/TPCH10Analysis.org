@@ -1,0 +1,195 @@
+#+TITLE: TPCH 10 Queries on Hive
+
+* Schema and Storage
+- Customer :: is denormalized to contain nation fields; stored in
+              RCFile format
+- Part :: stored in RCFile format
+- Supplier :: is denormalized to contain nation fields; stored in
+              RCFile format
+- PartSupp :: denormalized to contain Part and Supplier fields;
+              stored as RCFile format. Even though PartSupp contains
+              Part and Supplier fields most queries still join with
+              Part and Supplier tables.
+- Orders :: Stored as RCFile
+- LineItem :: Stored as RCFile; Partitioned on *ship_year*
+
+** Data sizes
+| Table    | NumFiles | File Format | TotalSize | Num Partitions |
+| Nation   |        1 | Text        | 2k        | -              |
+| Region   |        1 | Text        | 0.5k      | -              |
+| Part     |        2 | RCFile      | 8M        | -              |
+| Supplier |        2 | RCFile      | 9.6M      | -              |
+| PartSupp |        6 | RCFile      | 1.3G      | -              |
+| Orders   |       16 | RCFile      | 745M      | -              |
+| LineItem |      30  | RCFile      | 3.2G      | 7              |
+
+* Runtime settings
+#+begin_src sh
+-- tuning settings
+-- reuse jvm for all tasks of a job running on a node
+set mapred.job.reuse.jvm.num.tasks=-1;
+-- compress map output in each job
+set mapred.compress.map.output=true;
+
+set hive.exec.parallel=true;
+-- compress output of intermediate jobs in a hive query
+set hive.exec.compress.intermediate=true;
+#+end_src sh
+* Queries
+
+** Q1
+*** Plan
+[[file:q1.hplan.png]]
+*** Analysis
+#+begin_src sh
+MapReduce Jobs Launched: 
+Job 0: Map: 38  Reduce: 4   Cumulative CPU: 595.04 sec   HDFS Read: 1157970521 HDFS Write: 963 SUCCESS
+Job 1: Map: 4  Reduce: 1   Cumulative CPU: 3.36 sec   HDFS Read: 3107 HDFS Write: 583 SUCCESS
+Total MapReduce CPU Time Spent: 9 minutes 58 seconds 400 msec
+OK
+A	F	3.77518399E8	5.660657277972454E11	5.3775910427807275E11	5.592766708921088E11	25.500975103007097	38237.15100895823	0.050006574540139674	14804077
+N	F	9851614.0	1.4767438399170015E10	1.4028805792211437E10	1.4590490998366707E10	25.522448302840946	38257.81066008118	0.04997336773768295	385998
+N	O	7.42645576E8	1.1135803021456763E12	1.0578950594817264E12	1.1002235422271543E12	25.498035267942978	38233.72916422928	0.0500008600680667	29125600
+R	F	3.7773283E8	5.664310549760026E11	5.381109226647674E11	5.59634780885087E11	25.50838478968014	38251.21927355993	0.04999679231398424	14808183
+Time taken: 68.51 seconds
+#+end_src sh
+
+** Q2
+*** Plan
+
+[[file:q2.hplan.png]]
+
+*** Analysis
+#+begin_src sh
+MapReduce Jobs Launched: 
+Job 0: Map: 12  Reduce: 2   Cumulative CPU: 49.82 sec   HDFS Read: 136471083 HDFS Write: 6816263 SUCCESS
+Job 1: Map: 12   Cumulative CPU: 185.36 sec   HDFS Read: 740257853 HDFS Write: 329491 SUCCESS
+Job 2: Map: 12  Reduce: 1   Cumulative CPU: 9.08 sec   HDFS Read: 335923 HDFS Write: 16120 SUCCESS
+Total MapReduce CPU Time Spent: 4 minutes 4 seconds 260 msec
+OK
+9994.37	Supplier#000030084	GERMANY	380077	Manufacturer#5
+gBEvSkyW o1uHea0CV,oHtkTTVW	17-519-171-
+...
+Time taken: 119.077 seconds
+#+end_src sh
+** Q3
+*** Plan
+
+[[file:q3.hplan.png]]
+
+*** Analysis
+#+begin_src sh
+MapReduce Jobs Launched: 
+Job 0: Map: 18  Reduce: 1   Cumulative CPU: 162.33 sec   HDFS Read: 275625760 HDFS Write: 9889391 SUCCESS
+Job 1: Map: 39  Reduce: 4   Cumulative CPU: 646.3 sec   HDFS Read: 1062210875 HDFS Write: 1412175 SUCCESS
+Job 2: Map: 4  Reduce: 1   Cumulative CPU: 11.17 sec   HDFS Read: 1414319 HDFS Write: 1312165 SUCCESS
+Job 3: Map: 2  Reduce: 1   Cumulative CPU: 6.68 sec   HDFS Read: 2080845 HDFS Write: 543 SUCCESS
+Total MapReduce CPU Time Spent: 13 minutes 46 seconds 480 msec
+OK
+4791171	1.9030027277145126E-307	1995-02-23 00:00:00	0
+46678469	1.9029799190846666E-307	1995-01-27 00:00:00	0
+23906758	1.9027908823813936E-307	1995-03-14 00:00:00	0
+23861382	1.902685062777517E-307	1995-03-09 00:00:00	0
+59393639	1.9026133639720684E-307	1995-02-12 00:00:00	0
+3355202	1.90258855252302E-307	1995-03-04 00:00:00	0
+9806272	1.902588218072611E-307	1995-03-13 00:00:00	0
+22810436	1.9025389854413704E-307	1995-01-02 00:00:00	0
+16384100	1.9024924808532234E-307	1995-03-02 00:00:00	0
+52974151	1.9023303707221757E-307	1995-02-05 00:00:00	0
+Time taken: 160.917 seconds
+#+end_src sh
+
+** Q4
+*** Plan
+
+[[file:q3.hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q5
+*** Plan
+
+[[file:q3.hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+
+** Q6
+*** Plan
+
+[[file:q3.hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+
+** Q7
+*** Plan
+
+[[file:q3.hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+
+** Q8
+*** Query
+#+begin_src sql
+select
+  o_year,
+  sum(case when nation = 'BRAZIL' then volume else 0.0 end) / sum(volume) as mkt_share
+from
+  (select /*+ mapjoin(ps) */ s_n_name as nation, 
+         l_extendedprice * (1- l_discount) as volume, 
+         l_orderkey
+    from
+       partsupp ps join lineitem l on ps.ps_partkey = l.l_partkey
+                                   and ps.ps_suppkey = l.l_suppkey
+                                   and ps.p_type = 'ECONOMY ANODIZED STEEL'
+   ) x
+   join
+   (select /*+ mapjoin(c) */ o_orderkey, 
+           year((o.o_orderdate)) as o_year
+    from
+        orders o join customer c on o.o_custkey = c.c_custkey
+                    and c.c_r_name = 'AMERICA'
+                    and year((o.o_orderdate)) in (1995, 1996)
+   ) y on x.l_orderkey = y.o_orderkey
+group by o_year
+order by o_year;
+#+end_src sql
+
+*** Plan
+
+[[file:q8.hplan.png]]
+
+*** Analysis
+- Do a MapJoin of Customers and Orders
+- Do a MapJoin of PartSupp and LineItem
+- Do a MapJoin of output1 and output2
+- Do a GroupBy Job
+- Do a OrderBy Job
+- Do Fetch Job
+#+begin_src sh
+MapReduce Jobs Launched: 
+Job 0: Map: 393   Cumulative CPU: 1376.29 sec   HDFS Read: 2183132536 HDFS Write: 4819511 SUCCESS
+Job 1: Map: 16   Cumulative CPU: 260.47 sec   HDFS Read: 547175587 HDFS Write: 4395494 SUCCESS
+Job 2: Map: 393   Cumulative CPU: 6968.81 sec   HDFS Read: 5030159 HDFS Write: 72543 SUCCESS
+Job 3: Map: 393  Reduce: 1   Cumulative CPU: 206.45 sec   HDFS Read: 283191 HDFS Write: 232 SUCCESS
+Job 4: Map: 1  Reduce: 1   Cumulative CPU: 1.78 sec   HDFS Read: 768 HDFS Write: 51 SUCCESS
+Total MapReduce CPU Time Spent: 0 days 2 hours 26 minutes 53 seconds 800 msec
+OK
+1995	0.03882014251433219
+1996	0.039489687491839925
+Time taken: 200.967 seconds
+#+end_src sh
