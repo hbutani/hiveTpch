@@ -39,7 +39,9 @@ set hive.exec.compress.intermediate=true;
 
 ** Q1
 *** Plan
-[[file:q1.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q1-hplan.png]]
+
 *** Analysis
 #+begin_src sh
 MapReduce Jobs Launched: 
@@ -56,8 +58,8 @@ Time taken: 68.51 seconds
 
 ** Q2
 *** Plan
-
-[[file:q2.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q2-hplan.png]]
 
 *** Analysis
 #+begin_src sh
@@ -74,8 +76,8 @@ Time taken: 119.077 seconds
 #+end_src sh
 ** Q3
 *** Plan
-
-[[file:q3.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q3-hplan.png]]
 
 *** Analysis
 #+begin_src sh
@@ -101,8 +103,8 @@ Time taken: 160.917 seconds
 
 ** Q4
 *** Plan
-
-[[file:q3.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q4-hplan.png]]
 
 *** Analysis
 #+begin_src sh
@@ -111,8 +113,8 @@ Time taken: 160.917 seconds
 
 ** Q5
 *** Plan
-
-[[file:q3.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q5-hplan.png]]
 
 *** Analysis
 #+begin_src sh
@@ -122,8 +124,8 @@ Time taken: 160.917 seconds
 
 ** Q6
 *** Plan
-
-[[file:q3.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q6-hplan.png]]
 
 *** Analysis
 #+begin_src sh
@@ -133,8 +135,8 @@ Time taken: 160.917 seconds
 
 ** Q7
 *** Plan
-
-[[file:q3.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q7-hplan.png]]
 
 *** Analysis
 #+begin_src sh
@@ -170,8 +172,8 @@ order by o_year;
 #+end_src sql
 
 *** Plan
-
-[[file:q8.hplan.png]]
+#+ATTR_LATEX: height=7in
+[[file:q8-hplan.png]]
 
 *** Analysis
 - Do a MapJoin of Customers and Orders
@@ -193,3 +195,136 @@ OK
 1996	0.039489687491839925
 Time taken: 200.967 seconds
 #+end_src sh
+
+
+** Q9
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q9-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q10
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q10-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q11
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q11-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q12
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q12-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q13
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q13-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q14
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q14-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q15
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q15-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q16
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q16-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q17
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q17-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q18
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q18-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q19
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q19-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q20
+*** Plan
+#+ATTR_LATEX: height=7in
+[[file:q20-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+
+** Q21
+*** Plan
+
+#+ATTR_LATEX: height=7in
+[[file:q21-hplan.png]]
+
+*** Analysis
+#+begin_src sh
+
+#+end_src sh
+

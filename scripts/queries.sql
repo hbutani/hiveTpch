@@ -242,6 +242,7 @@ order by
 
 
 -- q10
+--set mapred.map.child.java.opts='-Xmx4096m -server';
 select
  c_custkey,
  c_name,
